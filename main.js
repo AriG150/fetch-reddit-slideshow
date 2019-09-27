@@ -21,20 +21,24 @@ console.log("hello")
 var form = document.getElementById("form");
 var submitButton = document.getElementById("submit");
 var clearButton = document.getElementById("clear");
-var inputText = form.searchInput.value;
+// var inputText = form.searchInput.value;
+var inputText = document.getElementById("searchInput").value;
 
 
 function settingImage(){
     submitButton.addEventListener("submit", function(e){ 
         e.preventDefault();
-        inputText = form.searchInput.value;
-        fetch(`http://www.reddit.com/search.json?q=${inputText}+url:.jpg+nsfw:no`)
+        // inputText = form.searchInput.value;
+        // inputText = document.getElementById("searchInput").value;
+        console.log(inputText);
+        fetch(`http://www.reddit.com/search.json?q=cats+url:.jpg+nsfw:no`)
             .then(function(randomData){
                 return randomData.json()
             })
             .then(function(jsonImage){
                 var thumbnails = jsonImage.data.children.map(function(picture){
                     if(picture.data.url.inclues('jpg') || picture.data.url.inclues('png')) {
+                        console.log(thumbnails)
                         return picture.data.url
                     }
                     
@@ -53,3 +57,6 @@ function settingImage(){
             })
 })
 }
+
+
+// (`http://www.reddit.com/search.json?q=${inputText}+url:.jpg+nsfw:no`)
